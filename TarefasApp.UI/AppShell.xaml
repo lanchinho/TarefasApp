@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TarefasApp.UI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TarefasApp.UI"
+    xmlns:views="clr-namespace:TarefasApp.UI.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout Padding="20">
+                <Image Source="https://cotiinformatica.com.br/imagens/logo-coti-informatica.png"
+                       Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="100"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <ShellContent
+        Title="Acessar Conta"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Criar Conta de Usuário"
+        ContentTemplate="{DataTemplate views:Register}"
+        Route="Register"/>
+
+    <ShellContent
+        Title="Esqueci Minha Senha"
+        ContentTemplate="{DataTemplate views:PasswordRecover}"
+        Route="PasswordRecover"/>
+
+    <ShellContent
+        Title="Dashboard Principal"
+        ContentTemplate="{DataTemplate views:Dashboard}"
+        Route="Dashboard"/>
+
+</Shell>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TarefasApp.UI.Models"
+             xmlns:behaviors="clr-namespace:TarefasApp.UI.Behaviors"
+             xmlns:dataForm="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
+             x:Class="TarefasApp.UI.MainPage"
+             Shell.NavBarIsVisible="False">
+
+    <!-- Definindo a classe de modelo da página -->
+    <ContentPage.BindingContext>
+        <models:AutenticarViewModel/>
+    </ContentPage.BindingContext>
+
+    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="SpaceEvenly">
+
+        <!-- Layout em GRID -->
+        <Grid Background="{StaticResource White}">
+
+            <!-- padrão de altura -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- desenhando um 'card' -->
+            <Frame Grid.Row="1" CornerRadius="6" BorderColor="LightGray" BackgroundColor="White" Padding="0" Margin="10">
+                <Grid IsClippedToBounds="True" HeightRequest="420">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Título da tela -->
+                    <!-- Primeira linha -->
+                    <Label
+                    Padding="10"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Start">
+                        <!-- Conteúdo da label -->
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Agenda de Tarefas" FontSize="24" FontAttributes="Bold"/>
+                                <Span Text="&#x0a;"/>
+                                <Span Text="Acesse sua conta de usuário!" FontSize="14"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <!-- Conteúdo do formulário -->
+                    <!-- Segunda linha -->
+                    <dataForm:SfDataForm x:Name="formAutenticar" LayoutType="TextInputLayout"
+                     Grid.Row="1" DataObject="{Binding AutenticarRequestModel}"
+                     ValidationMode="PropertyChanged">
+                    </dataForm:SfDataForm>
+
+                    <!-- Links de opções -->
+                    <!-- Terceira linha -->
+                    <Grid ColumnDefinitions="0.5*, 0.5*" Grid.Row="2" Padding="12,0,0,0" 
+                      VerticalOptions="Start">
+                        <HorizontalStackLayout VerticalOptions="Center" Padding="10, 0, 0, 0">
+                            <CheckBox Color="{StaticResource Primary}"/>
+                            <Label Text="Matenha-me conectado." FontSize="12" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <Label Text="Esqueci minha senha" Grid.Column="1" 
+                           TextColor="{StaticResource Primary}" HorizontalTextAlignment="Center"
+                           Padding="10,0,0,0" FontSize="12" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EsqueciMinhaSenhaTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <!-- Botão de ação -->
+                    <!-- Quarta linha -->
+                    <Button Text="Acessar Conta" x:Name="btnAcesso" HeightRequest="40"
+                        VerticalOptions="End" HorizontalOptions="Fill"
+                        Margin="20, 0, 20, 0" CornerRadius="10"
+                        Background="{StaticResource Primary}"
+                        Grid.Row="3"/>
+
+                    <!-- Quinta linha -->
+                    <Label Grid.Row="4" TextColor="{StaticResource Primary}" HorizontalTextAlignment="Center"
+                           Padding="10, 0, 0, 0" FontSize="12" VerticalOptions="Center"
+                           Text="Não possui conta? Cadastre-se aqui!">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CriarContaTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </Grid>
+            </Frame>
+
+        </Grid>
+
+    </FlexLayout>
+
+    <!-- Definindo a classe Behavior desta página -->
+    <ContentPage.Behaviors>
+        <behaviors:AutenticarBehavior/>
+    </ContentPage.Behaviors>
+
+</ContentPage>

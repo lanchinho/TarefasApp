@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TarefasApp.UI.Views.Register"
+             xmlns:behaviors="clr-namespace:TarefasApp.UI.Behaviors"
+             xmlns:models="clr-namespace:TarefasApp.UI.Models"
+             xmlns:dataForm="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
+             Shell.NavBarIsVisible="False"
+             >
+
+    <!-- Definindo a classe de modelo da página -->
+    <ContentPage.BindingContext>
+        <models:CriarContaViewModel/>
+    </ContentPage.BindingContext>
+
+    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="SpaceEvenly">
+        <Grid BackgroundColor="{StaticResource White}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Card para inserir o formulário -->
+            <Frame Grid.Row="1" CornerRadius="6" BorderColor="LightGray" BackgroundColor="White" Padding="0" Margin="10">
+                <Grid IsClippedToBounds="True" HeightRequest="680">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="420"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Título da página -->
+                    <Label Padding="10" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Crie sua Conta de Usuário" FontSize="24" FontAttributes="Bold" TextColor="Black"></Span>
+                                <Span Text="&#x0a;"></Span>
+                                <Span Text="Entre com os dados para criar sua conta!" FontSize="14" TextColor="Black"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <!-- Conteúdo do formulário -->
+                    <dataForm:SfDataForm x:Name="formCriarConta" LayoutType="TextInputLayout"
+                        Grid.Row="1" DataObject="{Binding CriarContaRequestModel}"
+                        ValidationMode="PropertyChanged"></dataForm:SfDataForm>
+
+                    <!-- Botão de ação -->
+                    <Button Text="Realizar Cadastro" x:Name="btnCriarConta" HeightRequest="40"
+                        VerticalOptions="End" HorizontalOptions="Fill"
+                        Margin="20, 0, 20, 0" CornerRadius="10"
+                        TextColor="White"
+                        Background="{StaticResource Primary}"
+                        Grid.Row="3"/>
+
+                </Grid>
+            </Frame>
+
+        </Grid>
+    </FlexLayout>
+
+    <ContentPage.Behaviors>
+        <behaviors:CriarContaBehavior />
+    </ContentPage.Behaviors>
+
+</ContentPage>
+
+
