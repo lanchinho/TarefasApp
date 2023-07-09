@@ -7,71 +7,91 @@
              xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              Shell.NavBarIsVisible="False">
 
-    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center" Padding="10">
+    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="SpaceEvenly">
         <Grid BackgroundColor="{StaticResource White}">
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label
-                Grid.Row="0" Text="Seja bem vindo à Agenda"                
-                FontSize="16" HorizontalOptions="Center"
-                Margin="2" TextColor="{StaticResource Primary}"
-                FontAttributes="Bold"
-                />
+            <!-- Card para inserir o formulário -->
+            <Frame Grid.Row="0" CornerRadius="6" BorderColor="LightGray" BackgroundColor="White" Padding="20" Margin="10">
+                <Grid IsClippedToBounds="True" HeightRequest="500">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <Label
-                Grid.Row="1" x:Name="nomeUsuario"
-                FontSize="14" HorizontalOptions="Center"
-                Margin="2" TextColor="Black"
-                />
-
-            <Label
-                Grid.Row="2" x:Name="emailUsuario"
-                FontSize="14" HorizontalOptions="Center"
-                Margin="2" TextColor="Black"
-                />
-
-            <Button 
-                Grid.Row="3" x:Name="btnLogout"
-                Text="Sair da conta"
-                Margin="2" 
-                FontSize="14"
-                HorizontalOptions="Center"
-                />
-
-            <!-- Desenhando o gráfico -->
-            <chart:SfCircularChart Margin="10">
-
-                <!-- título do gráfico -->
-                <chart:SfCircularChart.Title>
-                    <Label Text="Resumo de tarefas por categoria"/>
-                </chart:SfCircularChart.Title>
-
-                <!-- conteúdo do gráfico -->
-                <chart:SfCircularChart.BindingContext>
-                    <models:DashboardViewModel/>
-                </chart:SfCircularChart.BindingContext>
-
-                <!-- propriedades -->
-                <chart:PieSeries
-                    ItemsSource="{Binding DashboardModelList}"
-                    ShowDataLabels="True"
-                    XBindingPath="Categoria"
-                    YBindingPath="Quantidade"
-                    EnableTooltip="true"
+                    <Label
+                        Grid.Row="0" Text="Seja bem vindo à Agenda"                
+                        FontSize="22" HorizontalOptions="Center"
+                        Margin="10" TextColor="{StaticResource Primary}"
+                        FontAttributes="Bold"
                     />
 
-                <!-- legenda do gráfico -->
-                <chart:SfCircularChart.Legend>
-                    <chart:ChartLegend/>
-                </chart:SfCircularChart.Legend>
+                    <Label
+                        Grid.Row="1" x:Name="nomeUsuario"
+                        FontSize="16" HorizontalOptions="Center"
+                        TextColor="Black" Margin="2"
+                    />
 
-            </chart:SfCircularChart>
+                    <Label
+                        Grid.Row="2" x:Name="emailUsuario"
+                        FontSize="14" HorizontalOptions="Center"
+                        TextColor="Black" Margin="2"
+                    />
+
+                    <Button 
+                        Grid.Row="3" x:Name="btnLogout"
+                        Text="Sair da conta"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Margin="4"
+                    />
+
+                    <!-- Desenhando o gráfico -->
+                    <Grid Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="0" 
+                          BackgroundColor="White" VerticalOptions="FillAndExpand"
+                          Margin="20,0,0,0">
+                        <chart:SfCircularChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                            <!-- título do gráfico -->
+                            <chart:SfCircularChart.Title>
+                                <Label
+                                    Text="Resumo de tarefas por categoria"
+                                    FontSize="14" HorizontalOptions="Center"
+                                    Margin="2" TextColor="Black"
+                                />
+                            </chart:SfCircularChart.Title>
+
+                            <!-- conteúdo do gráfico -->
+                            <chart:SfCircularChart.BindingContext>
+                                <models:DashboardViewModel/>
+                            </chart:SfCircularChart.BindingContext>
+
+                            <!-- propriedades -->
+                            <chart:PieSeries
+                            ItemsSource="{Binding DashboardModelList}"
+                            ShowDataLabels="True"
+                            XBindingPath="Categoria"
+                            YBindingPath="Quantidade"
+                            EnableTooltip="true"
+                        />
+
+                            <!-- legenda do gráfico -->
+                            <chart:SfCircularChart.Legend>
+                                <chart:ChartLegend Placement="Bottom" />
+                            </chart:SfCircularChart.Legend>
+
+                        </chart:SfCircularChart>
+                    </Grid>
+
+                </Grid>
+
+            </Frame>
 
         </Grid>
     </FlexLayout>
