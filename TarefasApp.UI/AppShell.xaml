@@ -36,4 +36,18 @@
         ContentTemplate="{DataTemplate views:Dashboard}"
         Route="Dashboard"/>
 
+    <ShellContent
+        Title="Cadastro de Tarefas"
+        ContentTemplate="{DataTemplate views:TaskCreate}"
+        Route="TaskCreate"/>
+
+    <ShellContent
+        Title="Consulta de Tarefas"
+        ContentTemplate="{DataTemplate views:TaskList}"
+        Route="TaskList"/>
+
+    <ShellContent
+        Title="Edição de Tarefas"
+        ContentTemplate="{DataTemplate views:TaskEdit}"
+        Route="TaskEdit"/>
 </Shell>
