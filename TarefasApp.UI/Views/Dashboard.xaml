@@ -36,6 +36,8 @@
             <Button 
                 Grid.Row="3" x:Name="btnLogout"
                 Text="Sair da conta"
+                Margin="2"
+                FontSize="14"                
                 HorizontalOptions="Center" VerticalOptions="Center"
                 />
 
