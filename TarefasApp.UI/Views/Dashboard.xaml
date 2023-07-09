@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TarefasApp.UI.Views.Dashboard"
              xmlns:behaviors="clr-namespace:TarefasApp.UI.Behaviors"
+             xmlns:models="clr-namespace:TarefasApp.UI.Models"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              Shell.NavBarIsVisible="False">
 
-    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center" Padding="30">
+    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center" Padding="10">
         <Grid BackgroundColor="{StaticResource White}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -16,30 +19,59 @@
 
             <Label
                 Grid.Row="0" Text="Seja bem vindo à Agenda"                
-                FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"
-                Margin="6" TextColor="{StaticResource Primary}"
+                FontSize="16" HorizontalOptions="Center"
+                Margin="2" TextColor="{StaticResource Primary}"
                 FontAttributes="Bold"
                 />
 
             <Label
                 Grid.Row="1" x:Name="nomeUsuario"
-                FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"
-                Margin="4" TextColor="Black"
+                FontSize="14" HorizontalOptions="Center"
+                Margin="2" TextColor="Black"
                 />
 
             <Label
                 Grid.Row="2" x:Name="emailUsuario"
-                FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"
-                Margin="4" TextColor="Black"
+                FontSize="14" HorizontalOptions="Center"
+                Margin="2" TextColor="Black"
                 />
 
             <Button 
                 Grid.Row="3" x:Name="btnLogout"
                 Text="Sair da conta"
-                Margin="2"
-                FontSize="14"                
-                HorizontalOptions="Center" VerticalOptions="Center"
+                Margin="2" 
+                FontSize="14"
+                HorizontalOptions="Center"
                 />
+
+            <!-- Desenhando o gráfico -->
+            <chart:SfCircularChart Margin="10">
+
+                <!-- título do gráfico -->
+                <chart:SfCircularChart.Title>
+                    <Label Text="Resumo de tarefas por categoria"/>
+                </chart:SfCircularChart.Title>
+
+                <!-- conteúdo do gráfico -->
+                <chart:SfCircularChart.BindingContext>
+                    <models:DashboardViewModel/>
+                </chart:SfCircularChart.BindingContext>
+
+                <!-- propriedades -->
+                <chart:PieSeries
+                    ItemsSource="{Binding DashboardModelList}"
+                    ShowDataLabels="True"
+                    XBindingPath="Categoria"
+                    YBindingPath="Quantidade"
+                    EnableTooltip="true"
+                    />
+
+                <!-- legenda do gráfico -->
+                <chart:SfCircularChart.Legend>
+                    <chart:ChartLegend/>
+                </chart:SfCircularChart.Legend>
+
+            </chart:SfCircularChart>
 
         </Grid>
     </FlexLayout>
