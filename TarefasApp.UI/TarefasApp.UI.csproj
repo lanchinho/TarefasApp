@@ -53,6 +53,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Syncfusion.Maui.Charts" Version="22.1.37" />
 		<PackageReference Include="Syncfusion.Maui.DataForm" Version="21.2.10" />
+		<PackageReference Include="Syncfusion.Maui.ListView" Version="22.1.37" />
 	</ItemGroup>
 
 	<ItemGroup>

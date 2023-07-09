@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TarefasApp.UI.Models"
+             xmlns:dataForm="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
              x:Class="TarefasApp.UI.Views.TaskCreate"
-             Title="NewPage1">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Shell.NavBarIsVisible="false">
+
+    <ContentPage.BindingContext>
+        <models:TarefasCadastroViewModel/>
+    </ContentPage.BindingContext>
+
+    <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="SpaceEvenly">
+        <Grid BackgroundColor="{StaticResource White}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Card para inserir o formulário -->
+            <Frame Grid.Row="1" CornerRadius="6" BorderColor="LightGray" BackgroundColor="White" Padding="0" Margin="10">
+                <Grid IsClippedToBounds="True" HeightRequest="500">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Título da página -->
+                    <Label Padding="10" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                           Grid.Row="0"
+                           VerticalTextAlignment="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Cadastro de Tarefas" FontSize="24" FontAttributes="Bold" TextColor="Black"></Span>
+                                <Span Text="&#x0a;"></Span>
+                                <Span Text="Inclua tarefas em sua agenda!" FontSize="14" TextColor="Black"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <!-- Conteúdo do formulário -->
+                    <dataForm:SfDataForm x:Name="formCriarTarefa" LayoutType="TextInputLayout"
+                        Grid.Row="1" DataObject="{Binding TarefasCadastroRequestModel}"
+                        ValidationMode="PropertyChanged"></dataForm:SfDataForm>
+
+                    <!-- Botão de ação -->
+                    <Button Text="Realizar Cadastro" x:Name="btnCriarTarefa" HeightRequest="40"
+                        VerticalOptions="End" HorizontalOptions="Fill"
+                        Margin="20, 0, 20, 0" CornerRadius="10"
+                        TextColor="White"
+                        Background="{StaticResource Primary}"
+                        Grid.Row="2"/>
+
+                    <!-- Botão de ação -->
+                    <Button Text="Consultar Tarefas" x:Name="btnConsultarTarefas" HeightRequest="40"
+                        VerticalOptions="End" HorizontalOptions="Fill"
+                        Margin="20, 0, 20, 0" CornerRadius="10"
+                        TextColor="Black"
+                        Background="{StaticResource Gray100}"
+                        Grid.Row="3"/>
+
+                </Grid>
+            </Frame>
+
+        </Grid>
+    </FlexLayout>
+
 </ContentPage>
+
+
