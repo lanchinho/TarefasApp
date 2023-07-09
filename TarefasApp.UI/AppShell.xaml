@@ -5,12 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TarefasApp.UI"
     xmlns:views="clr-namespace:TarefasApp.UI.Views"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
     Shell.FlyoutBehavior="Flyout">
 
+    <!-- Desenhando um cabeçalho no menu lateral -->
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <StackLayout Padding="20">
-                <Image Source="https://cotiinformatica.com.br/imagens/logo-coti-informatica.png"
+                <Image Source="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.png"
                        Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="100"/>
             </StackLayout>
         </DataTemplate>
@@ -24,30 +26,55 @@
     <ShellContent
         Title="Criar Conta de Usuário"
         ContentTemplate="{DataTemplate views:Register}"
-        Route="Register"/>
+        Route="Register"
+        />
 
     <ShellContent
         Title="Esqueci Minha Senha"
         ContentTemplate="{DataTemplate views:PasswordRecover}"
-        Route="PasswordRecover"/>
+        Route="PasswordRecover"
+        />
 
     <ShellContent
         Title="Dashboard Principal"
         ContentTemplate="{DataTemplate views:Dashboard}"
-        Route="Dashboard"/>
+        Route="Dashboard"
+        />
 
     <ShellContent
         Title="Cadastro de Tarefas"
         ContentTemplate="{DataTemplate views:TaskCreate}"
-        Route="TaskCreate"/>
+        Route="TaskCreate"
+        />
 
     <ShellContent
         Title="Consulta de Tarefas"
         ContentTemplate="{DataTemplate views:TaskList}"
-        Route="TaskList"/>
+        Route="TaskList"
+        />
 
     <ShellContent
         Title="Edição de Tarefas"
         ContentTemplate="{DataTemplate views:TaskEdit}"
-        Route="TaskEdit"/>
+        Route="TaskEdit"
+        />
+
+    <!-- Rodapé do menu lateral -->
+    <Shell.FlyoutFooter>
+        <StackLayout BackgroundColor="#eee" Padding="10">
+            <Label
+                Text="Treinamento .NET MAUI - COTI Informática"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                />
+            <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
+                TextColor="Black"
+                   HorizontalOptions="Center"
+                />
+        </StackLayout>
+    </Shell.FlyoutFooter>
+
 </Shell>
+
+
+
