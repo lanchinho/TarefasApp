@@ -19,7 +19,10 @@ namespace TarefasApp.UI.Behaviors
             _btnCriarTarefa = bindable.FindByName<Button>("btnCriarTarefa");
 
             _btnCriarTarefa.Clicked += OnBtnCriarTarefaClicked;
-        }
+
+
+            _btnCriarTarefa.Released += LimparFormulario;
+        }      
 
         private async void OnBtnCriarTarefaClicked(object sender, EventArgs e)
         {
@@ -35,17 +38,15 @@ namespace TarefasApp.UI.Behaviors
                     var servicesHelper = new ServicesHelper(user.AccessToken);
                     var result = await servicesHelper.Post<TarefasCadastroRequestModel, TarefasConsultaResponseModel>("tarefas", model);
 
+                    
+
                     await App.Current.MainPage.DisplayAlert("Sucesso!", $"Tarefa '{result.Nome}', cadastrada com sucesso.", "Ok");
                 }
                 catch (Exception ex)
                 {
                     await App.Current.MainPage.DisplayAlert("Erro!", ex.Message, "OK");
                     throw;
-                }
-                finally
-                {
-                    LimparFormulario();
-                }
+                }        
             }
             else
             {
@@ -53,8 +54,12 @@ namespace TarefasApp.UI.Behaviors
             }
         }
 
-        private void LimparFormulario()
+        private async void LimparFormulario(object sender, EventArgs e)
         {
+            await Task.Delay(1000);
+
+            _formCriarTarefa.ValidationMode = DataFormValidationMode.Manual;
+            
             (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).Nome = string.Empty;
             _formCriarTarefa.UpdateEditor("Nome");
 
@@ -69,6 +74,8 @@ namespace TarefasApp.UI.Behaviors
 
             (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).DataFim = DateTime.Now;
             _formCriarTarefa.UpdateEditor("DataFim");
+
+            _formCriarTarefa.ValidationMode = DataFormValidationMode.LostFocus;
         }
     }
 }
