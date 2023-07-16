@@ -1,16 +1,8 @@
-﻿using Microsoft.Maui.Controls;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Syncfusion.Maui.DataForm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TarefasApp.Services.Helpers;
 using TarefasApp.Services.Model.Responses;
 using TarefasApp.Services.Models.Requests;
-using TarefasApp.UI.Views;
 
 namespace TarefasApp.UI.Behaviors
 {
@@ -44,34 +36,15 @@ namespace TarefasApp.UI.Behaviors
                     var result = await servicesHelper.Post<TarefasCadastroRequestModel, TarefasConsultaResponseModel>("tarefas", model);
 
                     await App.Current.MainPage.DisplayAlert("Sucesso!", $"Tarefa '{result.Nome}', cadastrada com sucesso.", "Ok");
-
-
-                    var myType = _formCriarTarefa.DataObject.GetType();
-                    var props = new List<PropertyInfo>(myType.GetProperties());
-
-                    foreach (PropertyInfo prop in props)
-                    {
-                        object propValue = prop.GetValue(_formCriarTarefa.DataObject, null);
-                        propValue = null;
-
-                        prop.SetValue(_formCriarTarefa.DataObject, propValue, null);
-
-                    }
-
-                    model.Descricao = string.Empty;
-                    model.DataFim = DateTime.Now;
-                    model.DataInicio = DateTime.Now;
-                    model.Nome = string.Empty;
-                    model.Categoria = string.Empty;
-
-                    _formCriarTarefa.DataObject = model;
-
-                    _formCriarTarefa.UpdateEditor("formCriarTarefa");
                 }
                 catch (Exception ex)
                 {
                     await App.Current.MainPage.DisplayAlert("Erro!", ex.Message, "OK");
                     throw;
+                }
+                finally
+                {
+                    LimparFormulario();
                 }
             }
             else
@@ -80,5 +53,22 @@ namespace TarefasApp.UI.Behaviors
             }
         }
 
+        private void LimparFormulario()
+        {
+            (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).Nome = string.Empty;
+            _formCriarTarefa.UpdateEditor("Nome");
+
+            (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).Descricao = string.Empty;
+            _formCriarTarefa.UpdateEditor("Descricao");
+
+            (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).Categoria = string.Empty;
+            _formCriarTarefa.UpdateEditor("Categoria");
+
+            (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).DataInicio = DateTime.Now;
+            _formCriarTarefa.UpdateEditor("DataInicio");
+
+            (_formCriarTarefa.DataObject as TarefasCadastroRequestModel).DataFim = DateTime.Now;
+            _formCriarTarefa.UpdateEditor("DataFim");
+        }
     }
 }

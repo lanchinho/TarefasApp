@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Syncfusion.Maui.DataForm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TarefasApp.Services.Helpers;
 using TarefasApp.Services.Model.Requests;
 using TarefasApp.Services.Model.Responses;
