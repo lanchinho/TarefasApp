@@ -19,8 +19,6 @@ namespace TarefasApp.UI.Behaviors
             _btnCriarTarefa = bindable.FindByName<Button>("btnCriarTarefa");
 
             _btnCriarTarefa.Clicked += OnBtnCriarTarefaClicked;
-
-
             _btnCriarTarefa.Released += LimparFormulario;
         }      
 
