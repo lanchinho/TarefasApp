@@ -13,7 +13,11 @@ namespace TarefasApp.UI.Models
         //construtor
         public TarefasCadastroViewModel()
         {
-            TarefasCadastroRequestModel = new TarefasCadastroRequestModel();
+            TarefasCadastroRequestModel = new TarefasCadastroRequestModel
+            {
+                DataInicio = DateTime.Now,
+                DataFim = DateTime.Now
+            };
         }
     }
 }

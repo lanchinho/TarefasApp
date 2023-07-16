@@ -15,12 +15,12 @@ namespace TarefasApp.Services.Models.Requests
         [Display(Name = "Data e hora de início:")]
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "Por favor, informe a data e hora de início.")]
-        public string? DataHoraInicio { get; set; }
+        public DateTime? DataInicio { get; set; }
 
         [Display(Name = "Data e hora de término:")]
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "Por favor, informe a data e hora de término.")]
-        public string? DataHoraFim { get; set; }
+        public DateTime? DataFim { get; set; }
 
         [Display(Name = "Selecione a categoria desta tarefa:")]
         [DataType(DataType.Text)]
@@ -29,7 +29,7 @@ namespace TarefasApp.Services.Models.Requests
 
         [Display(Name = "Informe as obervações:")]
         [DataType(DataType.MultilineText)]
-        public string? Observacoes { get; set; }
+        public string? Descricao { get; set; }
     }
 }
 

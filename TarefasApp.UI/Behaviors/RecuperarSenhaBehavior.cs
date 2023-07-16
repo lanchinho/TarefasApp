@@ -44,7 +44,7 @@ namespace TarefasApp.UI.Behaviors
 
                     var servicesHelper = new ServicesHelper();
                     var result = await servicesHelper
-                        .Post<RecuperarSenhaRequestModel, RecuperarSenhaResponseModel>("recuperar-senha", model);
+                        .Post<RecuperarSenhaRequestModel, RecuperarSenhaResponseModel>("recuperarsenha", model);
 
                     await App.Current.MainPage.DisplayAlert(
                         "Sucesso!",

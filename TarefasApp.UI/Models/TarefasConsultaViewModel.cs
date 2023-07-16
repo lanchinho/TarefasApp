@@ -1,4 +1,6 @@
-﻿using TarefasApp.Services.Model.Responses;
+﻿using Newtonsoft.Json;
+using TarefasApp.Services.Helpers;
+using TarefasApp.Services.Model.Responses;
 
 namespace TarefasApp.UI.Models
 {
@@ -8,22 +10,21 @@ namespace TarefasApp.UI.Models
 
         public TarefasConsultaViewModel()
         {
-            Tarefas = new List<TarefasConsultaResponseModel>();
+            InitializeAsync().Wait();
+        }
 
-            for (int i = 0; i < 6; i++)
-            {
-                Tarefas.Add(new TarefasConsultaResponseModel
-                {
-                    Nome = "Tarefa Modelo - Agenda",
-                    DataHoraInicio = DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
-                    DataHoraFim = DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
-                    Categoria = "Categoria teste",
-                    Observacoes = "Observações teste"
-                });
-            }
+        private async Task InitializeAsync()
+        {
+            Tarefas = await GetTarefasAsync();
+        }
+
+        private async Task<List<TarefasConsultaResponseModel>> GetTarefasAsync()
+        {
+            var auth = await SecureStorage.GetAsync("auth_user");
+            var user = JsonConvert.DeserializeObject<AutenticarResponseModel>(auth);
+
+            var servicesHelper = new ServicesHelper();
+            return await servicesHelper.Get<List<TarefasConsultaResponseModel>>("tarefas");
         }
     }
 }
-
-
-

@@ -47,7 +47,7 @@ namespace TarefasApp.UI.Behaviors
 
                     //enviando a requisição para a API
                     var servicesHelper = new ServicesHelper();
-                    var result = await servicesHelper.Post<CriarContaRequestModel, CriarContaResponseModel>("criar-conta", model);
+                    var result = await servicesHelper.Post<CriarContaRequestModel, CriarContaResponseModel>("criarconta", model);
 
                     await App.Current.MainPage.DisplayAlert(
                         "Sucesso!",

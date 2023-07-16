@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using TarefasApp.Services.Model.Responses;
@@ -15,6 +18,15 @@ namespace TarefasApp.Services.Helpers
     /// </summary>
     public class ServicesHelper
     {
+        private AuthenticationHeaderValue? _authenticationsHeaderValue;        
+
+        public ServicesHelper() { }
+
+        public ServicesHelper(string accessToken)
+        {
+            _authenticationsHeaderValue = new AuthenticationHeaderValue("Bearer", accessToken);
+        }
+
         /// <summary>
         /// Método genérico para requisições do tipo POST
         /// </summary>        
@@ -24,25 +36,49 @@ namespace TarefasApp.Services.Helpers
 
             using (var httpClient = new HttpClient())
             {
+                if (_authenticationsHeaderValue != null)
+                    httpClient.DefaultRequestHeaders.Authorization = _authenticationsHeaderValue;
+
                 var result = await httpClient.PostAsync($"{AppSettings.BaseUrl}{endpoint}", content);
 
-                var builder = new StringBuilder();
-                using (var r = result.Content)
-                {
-                    var task = r.ReadAsStringAsync();
-                    builder.Append(task.Result);
-                }
+                var response = ReadResponse(result);
 
                 if (result.IsSuccessStatusCode)
                 {
-                    return JsonConvert.DeserializeObject<TResponse>(builder.ToString());
+                    return JsonConvert.DeserializeObject<TResponse>(response);
                 }
                 else
                 {
-                    var error = JsonConvert.DeserializeObject<ErrorResult>(builder.ToString());
+                    var error = JsonConvert.DeserializeObject<ErrorResult>(response);
                     throw new Exception(error?.Message);
                 }
-            }            
+            }
+        }
+
+        public async Task<TResponse> Get<TResponse>(string endpoint)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                if (_authenticationsHeaderValue != null)
+                    httpClient.DefaultRequestHeaders.Authorization = _authenticationsHeaderValue;
+
+                var result = await httpClient.GetAsync($"{AppSettings.BaseUrl}{endpoint}");
+                var response = ReadResponse(result);
+
+                return JsonConvert.DeserializeObject<TResponse>(response);
+            }
+        }
+
+        private static string ReadResponse(HttpResponseMessage result)
+        {
+            var builder = new StringBuilder();
+            using (var r = result.Content)
+            {
+                var task = r.ReadAsStringAsync();
+                builder.Append(task.Result);
+            }
+
+            return builder.ToString();
         }
     }
 }
